@@ -1,16 +1,21 @@
 package client;
 
-import com.its.idmp.PlatformType;
+import java.util.Objects;
 
-/**
- * The CLI provides a simple way for developers and system administrators to
- * initiate and monitor jobs.
- */
+import com.its.idmp.Request;
+import com.its.idmp.Task;
+
 public class CliMain
 {
+	public Request prepareRequest(Task task)
+	{
+		var jobId = Objects.requireNonNullElse(task.jobId(), "0");
+		return new Request(jobId);
+	}
+
+	@SuppressWarnings("java:S106") // console output
 	public static void main(String[] args)
 	{
-		System.out.println("[CLI] Initiating a work request");
-		System.out.println("[CLI] Platform class is " + PlatformType.LOCAL.getImplementationClassName());
+		System.out.println("Initiating a work request");
 	}
 }

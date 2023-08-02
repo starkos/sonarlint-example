@@ -1,30 +1,16 @@
-// IDMP Core Project
-
 plugins {
 	id 'java'
 }
 
 repositories {
-	jcenter()
+	mavenCentral()
 }
-
-// For compatibility with Buildship
-buildDir = 'bin'
 
 java {
 	sourceCompatibility = JavaVersion.VERSION_11
 	targetCompatibility = JavaVersion.VERSION_11
 }
 
-jar {
-	// For Gradle v7 compatibility
-	duplicatesStrategy = DuplicatesStrategy.EXCLUDE
-
-	// Embed all dependencies to create a "fat jar" as required for AWS deployment.
-	// Exclude 3rd-party signing files to prevent security errors at runtime
-	from {
-		configurations.runtimeClasspath.collect { it.isDirectory() ? it : zipTree(it) }
-	} {
-		exclude 'META-INF/*.RSA', 'META-INF/*.SF', 'META-INF/*.DSA'
-	}
+dependencies {
+	implementation 'org.eclipse.jdt:org.eclipse.jdt.annotation:2.2.600'
 }
